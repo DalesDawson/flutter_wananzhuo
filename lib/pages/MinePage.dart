@@ -10,6 +10,9 @@ class _MinePageState extends State<MinePage> {
   Widget build(BuildContext context) {
     return new MaterialApp(
       home: new Scaffold(
+        appBar: AppBar(
+          title: new Text("玩安卓"),
+        ),
         body: new Center(
           child: new Text('我的'),
         ),

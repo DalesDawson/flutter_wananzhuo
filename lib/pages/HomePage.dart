@@ -1,12 +1,11 @@
+import 'package:banner_view/banner_view.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_refresh/flutter_refresh.dart';
+import 'package:flutter_wananzhuo/bean/Api.dart';
 import 'package:flutter_wananzhuo/bean/BannerItem.dart' as bannerItem;
 import 'package:flutter_wananzhuo/bean/HomeItem.dart' as homeItem;
-import 'package:banner_view/banner_view.dart';
-import 'package:flutter_wananzhuo/utils/HttpUtil.dart';
-import 'package:flutter_wananzhuo/bean/Api.dart';
 import 'package:flutter_wananzhuo/pages/DetailsPage.dart';
-import 'package:flutter_refresh/flutter_refresh.dart';
+import 'package:flutter_wananzhuo/utils/HttpUtil.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -74,7 +73,11 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(body: buildCustomScrollView());
+    return new Scaffold(
+        appBar: AppBar(
+          title: new Text("玩安卓"),
+        ),
+        body: buildCustomScrollView());
   }
 
   Widget buildCustomScrollView() {

@@ -30,11 +30,14 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        //导航栏
-        title: Text("玩安卓"),
+//      appBar: AppBar(
+//        //导航栏
+//        title: Text("玩安卓"),
+//      ),
+      body: IndexedStack(
+        index: _selectedIndex,
+        children: pageData,
       ),
-      body: pageData[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         // 底部导航
         items: <BottomNavigationBarItem>[

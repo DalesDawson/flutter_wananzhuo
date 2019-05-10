@@ -30,16 +30,19 @@ class HttpUtil {
       ///  [Dio] 将会抛出一个[DioErrorType.RECEIVE_TIMEOUT]的异常.
       ///  注意: 这并不是接收数据的总时限.
       receiveTimeout: 3000,
-      headers: {
-
-      },
+      headers: {},
     );
     dio = new Dio(options);
   }
 
-
-  get(url, {data, options, cancelToken,errorCallBack, successCallBack, startCallBack}) async {
-    if(startCallBack!=null){
+  get(url,
+      {data,
+      options,
+      cancelToken,
+      errorCallBack,
+      successCallBack,
+      startCallBack}) async {
+    if (startCallBack != null) {
       startCallBack();
     }
     print('get请求启动! url：$url ,body: $data');
@@ -49,7 +52,7 @@ class HttpUtil {
         url,
         cancelToken: cancelToken,
       );
-      if(successCallBack!=null){
+      if (successCallBack != null) {
         successCallBack(response.data);
       }
       print('json结果=${response.data}');
@@ -57,23 +60,31 @@ class HttpUtil {
       if (CancelToken.isCancel(e)) {
         print('get请求取消! ' + e.message);
       }
-      if(errorCallBack!=null){
+      if (errorCallBack != null) {
         errorCallBack();
       }
       print('get请求发生错误：$e');
     }
     return response.data;
   }
-  postFormData(url,name)async{
+
+  postFormData(url, name) async {
     FormData formData = new FormData.from({
       "k": name,
     });
-    Response response=await dio.post(url,
-    data: formData);
+    Response response = await dio.post(url, data: formData);
+    print("post-form-data请求返回数据" + response.data.toString());
     return response.data;
   }
-  post(url, {data, options, cancelToken, errorCallBack, successCallBack, startCallBack}) async {
-    if(startCallBack!=null){
+
+  post(url,
+      {data,
+      options,
+      cancelToken,
+      errorCallBack,
+      successCallBack,
+      startCallBack}) async {
+    if (startCallBack != null) {
       startCallBack();
     }
     print('post请求启动! url：$url ,body: $data');
@@ -84,7 +95,7 @@ class HttpUtil {
         data: data,
         cancelToken: cancelToken,
       );
-      if(successCallBack!=null){
+      if (successCallBack != null) {
         successCallBack(response.data);
       }
       print('json结果= ${response.data}');
@@ -92,7 +103,7 @@ class HttpUtil {
       if (CancelToken.isCancel(e)) {
         print('post请求取消! ' + e.message);
       }
-      if(errorCallBack!=null){
+      if (errorCallBack != null) {
         errorCallBack();
       }
       print('post请求发生错误：$e');

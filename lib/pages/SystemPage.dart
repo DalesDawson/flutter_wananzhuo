@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_wananzhuo/bean/system_tree_entity.dart';
-import 'package:flutter_wananzhuo/pages/SystemListPage.dart';
-
-import 'package:flutter_wananzhuo/utils/HttpUtil.dart';
 import 'package:flutter_wananzhuo/bean/Api.dart';
+import 'package:flutter_wananzhuo/bean/system_tree_entity.dart';
 import 'package:flutter_wananzhuo/bean/system_tree_entity.dart' as systemItem;
+import 'package:flutter_wananzhuo/pages/SystemListPage.dart';
+import 'package:flutter_wananzhuo/utils/HttpUtil.dart';
 
 class SystemPage extends StatefulWidget {
   @override
@@ -24,6 +23,9 @@ class _SystemPageState extends State<SystemPage> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
+      appBar: AppBar(
+        title: new Text("玩安卓"),
+      ),
       body: new Container(
           child: new ListView.builder(
               itemCount: systemList.length,
@@ -49,7 +51,7 @@ class _SystemPageState extends State<SystemPage> {
               context,
               new MaterialPageRoute(
                   builder: (context) =>
-                  new SystemListPage(item.children,item.name)));
+                      new SystemListPage(item.children, item.name)));
         },
         child: new ListTile(
           title: new Row(

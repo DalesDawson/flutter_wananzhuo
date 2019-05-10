@@ -1,13 +1,14 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_wananzhuo/bean/Api.dart';
-import 'package:flutter_wananzhuo/pages/DetailsPage.dart';
-import 'package:flutter_wananzhuo/pages/SearchResultPage.dart';
-import 'package:flutter_wananzhuo/utils/HttpUtil.dart';
 import 'package:flutter_wananzhuo/bean/hot_search_friend_entity.dart'
     as hotFriend;
 import 'package:flutter_wananzhuo/bean/hot_search_key_entity.dart' as hotKey;
+import 'package:flutter_wananzhuo/pages/DetailsPage.dart';
+import 'package:flutter_wananzhuo/pages/SearchResultPage.dart';
+import 'package:flutter_wananzhuo/utils/HttpUtil.dart';
 
 class HotSearchPage extends StatefulWidget {
   @override
@@ -16,7 +17,8 @@ class HotSearchPage extends StatefulWidget {
 
 class _HotSearchPageState extends State<HotSearchPage> {
   final controller = TextEditingController();
-  
+  bool isLoading = true;
+
   List<hotKey.HotSearchKeyData> hotKeyList;
   List<hotFriend.HotSearchFriendData> hotFriendList;
   List<Color> colors = [
@@ -40,53 +42,63 @@ class _HotSearchPageState extends State<HotSearchPage> {
   @override
   void initState() {
     super.initState();
-    getKeyList();
-    getFriendList();
+    isLoading = true;
+    getList();
   }
 
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
+      appBar: AppBar(
+        title: new Text("玩安卓"),
+      ),
       body: buildCustomScrollView(),
     );
   }
 
   //获取热搜关键词列表
-  void getKeyList() async {
+  void getList() async {
     var response = await new HttpUtil().get(Api.HOT_WORD);
     var item = new hotKey.HotSearchKey.fromJson(response);
+    var response1 = await new HttpUtil().get(Api.HOT_FRIEND);
+    var item1 = new hotFriend.HotSearchFriend.fromJson(response1);
     setState(() {
+      isLoading = false;
       hotKeyList = item.data;
-    });
-  }
-
-  //获取常用网站
-  void getFriendList() async {
-    var response = await new HttpUtil().get(Api.HOT_FRIEND);
-    var item = new hotFriend.HotSearchFriend.fromJson(response);
-    setState(() {
-      hotFriendList = item.data;
+      isLoading = false;
+      hotFriendList = item1.data;
     });
   }
 
   Widget buildCustomScrollView() {
-    return new Container(
-        child: new ListView.builder(
-            itemCount: 20,
-            itemBuilder: (BuildContext context, int index) {
-              if (index == 0) {
-                return buildSearch();
-              } else if (index == 1) {
-                return buildTitle("大家都在搜");
+    return isLoading
+        ? SpinKitCircle(
+            itemBuilder: (_, int index) {
+              return DecoratedBox(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5.0),
+                  color: Colors.grey,
+                ),
+              );
+            },
+          )
+        : new Container(
+            child: new ListView.builder(
+                itemCount: 20,
+                itemBuilder: (BuildContext context, int index) {
+                  if (index == 0) {
+                    return buildSearch();
+                  } else if (index == 1) {
+                    return buildTitle("大家都在搜");
 //                return buildList(homeList[index - headerCount]);
-              } else if (index == 2) {
-                return buildKeyList();
-              } else if (index == 3) {
-                return buildTitle("常用网站");
-              } else if (index == 4) {
-                return buildFriendList();
-              }
-            }));
+                  } else if (index == 2) {
+                    return buildKeyList();
+                  } else if (index == 3) {
+                    return buildTitle("常用网站");
+                  } else if (index == 4) {
+                    return buildFriendList();
+                  }
+                }));
   }
 
   Widget buildSearch() {

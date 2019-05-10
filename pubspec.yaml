@@ -28,6 +28,7 @@ dependencies:
   banner_view: "^1.1.2" #轮播图
   flutter_webview_plugin: ^0.2.1+2
   flutter_refresh: ^0.0.2
+  flutter_spinkit: "^3.1.0"
 
 dev_dependencies:
 
