@@ -138,13 +138,18 @@ class ListPageState extends State<ListPage> with AutomaticKeepAliveClientMixin {
                               children: <Widget>[
                                 Image.network(item.envelopePic,
                                     width: 80, height: 160),
-                                Text(item.title,
-                                    textDirection: TextDirection.ltr,
-                                    softWrap: false,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: new TextStyle(
-                                        color: Colors.black, fontSize: 15.0))
+                                Expanded(
+                                    child: Text(item.title,
+                                        textDirection: TextDirection.ltr,
+                                        softWrap: false,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: new TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 15.0)))
                               ],
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.start,
                             )),
                             new Text(
                               "${item.author}/${item.chapterName}",
