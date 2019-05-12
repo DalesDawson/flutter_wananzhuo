@@ -7,6 +7,7 @@ import 'package:flutter_wananzhuo/bean/system_list_item_entity.dart'
     as systemList;
 import 'package:flutter_wananzhuo/bean/system_tree_entity.dart';
 import 'package:flutter_wananzhuo/utils/HttpUtil.dart';
+import 'package:flutter_wananzhuo/utils/NavigatorUtil.dart';
 
 class SystemListPage extends StatefulWidget {
   final List<SystemTreeDatachild> children;
@@ -108,7 +109,7 @@ class ListPageState extends State<ListPage> with AutomaticKeepAliveClientMixin {
                       isUtc: true);
                   return new GestureDetector(
                     onTap: () {
-//            NavigatorUtils.gotoDetail(context, item.link, item.title);
+                      NavigatorUtil.toDetails(context,item.link,item.title);
                     },
                     child: new Card(
                       child: Container(

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_refresh/flutter_refresh.dart';
 import 'package:flutter_wananzhuo/bean/HomeItem.dart' as homeItem;
 import 'package:flutter_wananzhuo/bean/Api.dart';
-import 'package:flutter_wananzhuo/pages/DetailsPage.dart';
 import 'package:flutter_wananzhuo/utils/HttpUtil.dart';
+import 'package:flutter_wananzhuo/utils/NavigatorUtil.dart';
 
 class SearchResultPage extends StatefulWidget {
   final String name;
@@ -27,6 +27,7 @@ class SearchResultState extends State<SearchResultPage> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
+        elevation: 0,
         title: new Text(name),
       ),
       body: buildCustomScrollView(),
@@ -93,11 +94,7 @@ class SearchResultState extends State<SearchResultPage> {
     return new Card(
       child: new InkWell(
         onTap: () {
-          Navigator.push(
-              context,
-              new MaterialPageRoute(
-                  builder: (context) =>
-                      new DetailsPage(item.link, item.title)));
+          NavigatorUtil.toDetails(context,item.link,item.title);
         },
         child: new ListTile(
           title: new Row(

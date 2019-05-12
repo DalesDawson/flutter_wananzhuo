@@ -26,6 +26,7 @@ class DetailsState extends State<DetailsPage> {
     return new WebviewScaffold(
       url: url,
       appBar: new AppBar(
+        elevation: 0,
         title: new Text(titleName),
       ),
       withZoom: false,

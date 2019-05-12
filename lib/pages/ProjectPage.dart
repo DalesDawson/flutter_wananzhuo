@@ -5,7 +5,9 @@ import 'package:flutter_wananzhuo/bean/Api.dart';
 import 'package:flutter_wananzhuo/bean/HomeItem.dart' as homeItem;
 import 'package:flutter_wananzhuo/bean/project_tree_entity.dart';
 import 'package:flutter_wananzhuo/bean/project_tree_entity.dart' as projectTree;
+import 'package:flutter_wananzhuo/utils/CommonUtil.dart';
 import 'package:flutter_wananzhuo/utils/HttpUtil.dart';
+import 'package:flutter_wananzhuo/utils/NavigatorUtil.dart';
 
 class ProjectPage extends StatefulWidget {
   @override
@@ -34,7 +36,6 @@ class _ProjectPageState extends State<ProjectPage> {
           ),
           body: new TabBarView(
             children: projectTreeList.map((ProjectTreeData child) {
-//              new Text(child.id.toString());
               return ListPage(
                 cid: child.id,
               );
@@ -97,74 +98,86 @@ class ListPageState extends State<ListPage> with AutomaticKeepAliveClientMixin {
             childBuilder: (BuildContext context,
                 {ScrollController controller, ScrollPhysics physics}) {
               return new Container(
-                  child: new ListView.builder(
-                physics: physics,
-                controller: controller,
-                itemCount: data.length,
-                itemBuilder: (BuildContext context, int index) {
-//                  data.map((item) {
-                  var item = data[index];
-                  var date = DateTime.fromMillisecondsSinceEpoch(
-                      item.publishTime,
-                      isUtc: true);
-                  return new GestureDetector(
-                    onTap: () {
-//            NavigatorUtils.gotoDetail(context, item.link, item.title);
-                    },
-                    child: new Card(
-                      child: Container(
-                        margin: EdgeInsets.only(
-                            left: 10.0, right: 10.0, top: 10.0, bottom: 10.0),
-                        child: new Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            new Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                new Text(
-                                  item.author,
-                                  style: new TextStyle(
-                                      fontSize: 13.0, color: Colors.grey),
+                child: new ListView.builder(
+                    physics: physics,
+                    controller: controller,
+                    itemCount: data.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      var item = data[index];
+                      var date = DateTime.fromMillisecondsSinceEpoch(
+                          item.publishTime,
+                          isUtc: true);
+                      return new GestureDetector(
+                        onTap: () {
+                          NavigatorUtil.toDetails(
+                              context, item.link, item.title);
+                        },
+                        child: new Card(
+                            child: new Padding(
+                          padding: EdgeInsets.all(10.0),
+                          child: new Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Image.network(
+                                item.envelopePic,
+                                fit: BoxFit.cover,
+                                width: 80.0,
+                                height: 120.0,
+                              ),
+                              new Container(
+                                height: 120.0,
+                                margin: EdgeInsets.only(left: 8.0),
+                                width:
+                                    CommonUtil.getScreenWidth(context) - 120.0,
+                                child: new Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    new Text(
+                                      item.title,
+                                      style: new TextStyle(
+                                          fontSize: 16.0,
+                                          color: Colors.black87),
+                                      maxLines: 2,
+                                    ),
+                                    new Text(
+                                      item.desc,
+                                      style: new TextStyle(
+                                          fontSize: 14.0, color: Colors.grey),
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 3,
+                                    ),
+                                    new Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        new Text(
+                                          item.author,
+                                          style: new TextStyle(
+                                              fontSize: 12.0,
+                                              color: Colors.blue),
+                                        ),
+                                        new Text(
+                                          "${date.year}年${date.month}月${date.day}日 ${date.hour}:${date.minute}",
+                                          style: new TextStyle(
+                                              fontSize: 11.0,
+                                              color: Colors.blue),
+                                        ),
+                                      ],
+                                    )
+                                  ],
                                 ),
-                                new Text(
-                                  "${date.year}年${date.month}月${date.day}日 ${date.hour}:${date.minute}",
-                                  style: new TextStyle(
-                                      fontSize: 13.0, color: Colors.grey),
-                                ),
-                              ],
-                            ),
-                            new Container(
-                                child: new Row(
-                              children: <Widget>[
-                                Image.network(item.envelopePic,
-                                    width: 80, height: 160),
-                                Expanded(
-                                    child: Text(item.title,
-                                        textDirection: TextDirection.ltr,
-                                        softWrap: false,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: new TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 15.0)))
-                              ],
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                            )),
-                            new Text(
-                              "${item.author}/${item.chapterName}",
-                              style: new TextStyle(
-                                  fontSize: 13.0, color: Colors.blue),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  );
+                              )
+                            ],
+                          ),
+                        )),
+                      );
+                    }),
 //                  }).toList();
-                },
-              ));
-            });
+              );
+            },
+          );
   }
 
 // 顶部刷新
@@ -212,6 +225,6 @@ class ListPageState extends State<ListPage> with AutomaticKeepAliveClientMixin {
   }
 
   @override
-  // TODO: implement wantKeepAlive
+// TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
 }

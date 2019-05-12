@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_wananzhuo/bean/Api.dart';
 import 'package:flutter_wananzhuo/bean/system_tree_entity.dart';
 import 'package:flutter_wananzhuo/bean/system_tree_entity.dart' as systemItem;
-import 'package:flutter_wananzhuo/pages/SystemListPage.dart';
 import 'package:flutter_wananzhuo/utils/HttpUtil.dart';
+import 'package:flutter_wananzhuo/utils/NavigatorUtil.dart';
 
 class SystemPage extends StatefulWidget {
   @override
@@ -47,11 +47,7 @@ class _SystemPageState extends State<SystemPage> {
     return new Card(
       child: new InkWell(
         onTap: () {
-          Navigator.push(
-              context,
-              new MaterialPageRoute(
-                  builder: (context) =>
-                      new SystemListPage(item.children, item.name)));
+          NavigatorUtil.toSystemList(context, item.children, item.name);
         },
         child: new ListTile(
           title: new Row(

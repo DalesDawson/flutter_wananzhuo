@@ -4,11 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_wananzhuo/bean/Api.dart';
 import 'package:flutter_wananzhuo/bean/hot_search_friend_entity.dart'
-    as hotFriend;
+as hotFriend;
 import 'package:flutter_wananzhuo/bean/hot_search_key_entity.dart' as hotKey;
 import 'package:flutter_wananzhuo/pages/DetailsPage.dart';
 import 'package:flutter_wananzhuo/pages/SearchResultPage.dart';
 import 'package:flutter_wananzhuo/utils/HttpUtil.dart';
+import 'package:flutter_wananzhuo/utils/NavigatorUtil.dart';
 
 class HotSearchPage extends StatefulWidget {
   @override
@@ -50,6 +51,7 @@ class _HotSearchPageState extends State<HotSearchPage> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: AppBar(
+        elevation: 0,
         title: new Text("玩安卓"),
       ),
       body: buildCustomScrollView(),
@@ -73,32 +75,32 @@ class _HotSearchPageState extends State<HotSearchPage> {
   Widget buildCustomScrollView() {
     return isLoading
         ? SpinKitCircle(
-            itemBuilder: (_, int index) {
-              return DecoratedBox(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5.0),
-                  color: Colors.grey,
-                ),
-              );
-            },
-          )
+      itemBuilder: (_, int index) {
+        return DecoratedBox(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5.0),
+            color: Colors.grey,
+          ),
+        );
+      },
+    )
         : new Container(
-            child: new ListView.builder(
-                itemCount: 20,
-                itemBuilder: (BuildContext context, int index) {
-                  if (index == 0) {
-                    return buildSearch();
-                  } else if (index == 1) {
-                    return buildTitle("大家都在搜");
+        child: new ListView.builder(
+            itemCount: 20,
+            itemBuilder: (BuildContext context, int index) {
+              if (index == 0) {
+                return buildSearch();
+              } else if (index == 1) {
+                return buildTitle("大家都在搜");
 //                return buildList(homeList[index - headerCount]);
-                  } else if (index == 2) {
-                    return buildKeyList();
-                  } else if (index == 3) {
-                    return buildTitle("常用网站");
-                  } else if (index == 4) {
-                    return buildFriendList();
-                  }
-                }));
+              } else if (index == 2) {
+                return buildKeyList();
+              } else if (index == 3) {
+                return buildTitle("常用网站");
+              } else if (index == 4) {
+                return buildFriendList();
+              }
+            }));
   }
 
   Widget buildSearch() {
@@ -126,22 +128,18 @@ class _HotSearchPageState extends State<HotSearchPage> {
           ),
           Expanded(
             child: FlatButton(
-              padding:
-                  EdgeInsets.only(left: 5.0, top: 3.0, right: 5.0, bottom: 2.0),
-              color: Colors.blue,
-              highlightColor: Colors.blue[700],
-              colorBrightness: Brightness.dark,
-              splashColor: Colors.grey,
-              child: Text("搜索"),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0)),
-              onPressed: () => {
-                    Navigator.push(
-                        context,
-                        new MaterialPageRoute(
-                            builder: (context) =>
-                                new SearchResultPage(controller.text)))
-                  },
+                padding:
+                EdgeInsets.only(left: 5.0, top: 3.0, right: 5.0, bottom: 2.0),
+                color: Colors.blue,
+                highlightColor: Colors.blue[700],
+                colorBrightness: Brightness.dark,
+                splashColor: Colors.grey,
+                child: Text("搜索"),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0)),
+                onPressed: () => {
+                NavigatorUtil.toSearchResult(context, controller.text)
+            }
             ),
             flex: 1,
           ),
@@ -185,7 +183,7 @@ class _HotSearchPageState extends State<HotSearchPage> {
                       context,
                       new MaterialPageRoute(
                           builder: (context) =>
-                              new SearchResultPage(item.name)));
+                          new SearchResultPage(item.name)));
                 });
           }).toList(),
         ));
@@ -214,7 +212,7 @@ class _HotSearchPageState extends State<HotSearchPage> {
                       context,
                       new MaterialPageRoute(
                           builder: (context) =>
-                              new DetailsPage(item.link, item.name)));
+                          new DetailsPage(item.link, item.name)));
                 });
           }).toList(),
         ));

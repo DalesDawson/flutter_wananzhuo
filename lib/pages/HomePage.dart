@@ -4,8 +4,8 @@ import 'package:flutter_refresh/flutter_refresh.dart';
 import 'package:flutter_wananzhuo/bean/Api.dart';
 import 'package:flutter_wananzhuo/bean/BannerItem.dart' as bannerItem;
 import 'package:flutter_wananzhuo/bean/HomeItem.dart' as homeItem;
-import 'package:flutter_wananzhuo/pages/DetailsPage.dart';
 import 'package:flutter_wananzhuo/utils/HttpUtil.dart';
+import 'package:flutter_wananzhuo/utils/NavigatorUtil.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -75,6 +75,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return new Scaffold(
         appBar: AppBar(
+          elevation: 0,
           title: new Text("玩安卓"),
         ),
         body: buildCustomScrollView());
@@ -105,11 +106,7 @@ class _HomePageState extends State<HomePage> {
     return new Card(
       child: new InkWell(
         onTap: () {
-          Navigator.push(
-              context,
-              new MaterialPageRoute(
-                  builder: (context) =>
-                      new DetailsPage(item.link, item.title)));
+          NavigatorUtil.toDetails(context, item.link, item.title);
         },
         child: new ListTile(
           title: new Row(
@@ -144,16 +141,13 @@ class _HomePageState extends State<HomePage> {
 
   Widget buildBanner() {
     return new Container(
+      padding: EdgeInsets.all(5),
       child: bannerList.length > 0
           ? new BannerView(
               bannerList.map((bannerItem.BannerData item) {
                 return new GestureDetector(
                     onTap: () {
-                      Navigator.push(
-                          context,
-                          new MaterialPageRoute(
-                              builder: (context) =>
-                                  new DetailsPage(item.url, item.title)));
+                      NavigatorUtil.toDetails(context, item.url, item.title);
                     },
                     child: new Image.network(
                       item.imagePath,
