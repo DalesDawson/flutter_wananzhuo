@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_wananzhuo/bean/Api.dart';
 import 'package:flutter_wananzhuo/bean/hot_search_friend_entity.dart'
-as hotFriend;
+    as hotFriend;
 import 'package:flutter_wananzhuo/bean/hot_search_key_entity.dart' as hotKey;
 import 'package:flutter_wananzhuo/pages/DetailsPage.dart';
 import 'package:flutter_wananzhuo/pages/SearchResultPage.dart';
@@ -75,32 +75,32 @@ class _HotSearchPageState extends State<HotSearchPage> {
   Widget buildCustomScrollView() {
     return isLoading
         ? SpinKitCircle(
-      itemBuilder: (_, int index) {
-        return DecoratedBox(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5.0),
-            color: Colors.grey,
-          ),
-        );
-      },
-    )
+            itemBuilder: (_, int index) {
+              return DecoratedBox(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5.0),
+                  color: Colors.grey,
+                ),
+              );
+            },
+          )
         : new Container(
-        child: new ListView.builder(
-            itemCount: 20,
-            itemBuilder: (BuildContext context, int index) {
-              if (index == 0) {
-                return buildSearch();
-              } else if (index == 1) {
-                return buildTitle("大家都在搜");
+            child: new ListView.builder(
+                itemCount: 20,
+                itemBuilder: (BuildContext context, int index) {
+                  if (index == 0) {
+                    return buildSearch();
+                  } else if (index == 1) {
+                    return buildTitle("大家都在搜");
 //                return buildList(homeList[index - headerCount]);
-              } else if (index == 2) {
-                return buildKeyList();
-              } else if (index == 3) {
-                return buildTitle("常用网站");
-              } else if (index == 4) {
-                return buildFriendList();
-              }
-            }));
+                  } else if (index == 2) {
+                    return buildKeyList();
+                  } else if (index == 3) {
+                    return buildTitle("常用网站");
+                  } else if (index == 4) {
+                    return buildFriendList();
+                  }
+                }));
   }
 
   Widget buildSearch() {
@@ -111,25 +111,28 @@ class _HotSearchPageState extends State<HotSearchPage> {
       child: new Row(
         children: <Widget>[
           Expanded(
-            child: TextField(
-              controller: controller,
-              cursorColor: Colors.grey, // 光标颜色
-              // 默认设置
-              decoration: InputDecoration(
-                  contentPadding: const EdgeInsets.symmetric(vertical: 10.0),
-                  border: new OutlineInputBorder(),
-                  prefixIcon: Icon(Icons.search),
-                  hintText: "输入关键字搜索",
-                  hintStyle: new TextStyle(
-                      fontSize: 14, color: Color.fromARGB(50, 0, 0, 0))),
-              style: new TextStyle(fontSize: 14, color: Colors.black),
+            child: ConstrainedBox(
+              constraints: BoxConstraints(maxHeight: 40, maxWidth: 300),
+              child: TextField(
+                controller: controller,
+                cursorColor: Colors.grey, // 光标颜色
+                // 默认设置
+                decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.symmetric(vertical: 10.0),
+                    border: new OutlineInputBorder(),
+                    prefixIcon: Icon(Icons.search),
+                    hintText: "输入关键字搜索",
+                    hintStyle: new TextStyle(
+                        fontSize: 14, color: Color.fromARGB(50, 0, 0, 0))),
+                style: new TextStyle(fontSize: 14, color: Colors.black),
+              ),
             ),
             flex: 3,
           ),
           Expanded(
             child: FlatButton(
-                padding:
-                EdgeInsets.only(left: 5.0, top: 3.0, right: 5.0, bottom: 2.0),
+                padding: EdgeInsets.only(
+                    left: 5.0, top: 3.0, right: 5.0, bottom: 2.0),
                 color: Colors.blue,
                 highlightColor: Colors.blue[700],
                 colorBrightness: Brightness.dark,
@@ -137,15 +140,13 @@ class _HotSearchPageState extends State<HotSearchPage> {
                 child: Text("搜索"),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0)),
-                onPressed: () => {
-                NavigatorUtil.toSearchResult(context, controller.text)
-            }
-            ),
+                onPressed: () =>
+                    {NavigatorUtil.toSearchResult(context, controller.text)}),
             flex: 1,
           ),
         ],
         mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.center,
       ),
     );
@@ -183,7 +184,7 @@ class _HotSearchPageState extends State<HotSearchPage> {
                       context,
                       new MaterialPageRoute(
                           builder: (context) =>
-                          new SearchResultPage(item.name)));
+                              new SearchResultPage(item.name)));
                 });
           }).toList(),
         ));
@@ -212,7 +213,7 @@ class _HotSearchPageState extends State<HotSearchPage> {
                       context,
                       new MaterialPageRoute(
                           builder: (context) =>
-                          new DetailsPage(item.link, item.name)));
+                              new DetailsPage(item.link, item.name)));
                 });
           }).toList(),
         ));

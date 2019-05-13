@@ -11,11 +11,11 @@ class _MinePageState extends State<MinePage> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          title: new Text("玩安卓"),
-        ),
-        body: buildContent(),
+      appBar: AppBar(
+        elevation: 0,
+        title: new Text("玩安卓"),
+      ),
+      body: buildContent(),
     );
   }
 
@@ -25,14 +25,33 @@ class _MinePageState extends State<MinePage> {
         new Container(
 //        constraints: BoxConstraints.expand(),
             width: CommonUtil.getScreenWidth(context),
-            height: 150,
+            height: 180,
             child: new Center(
-              child: new Image.asset(
-                'images/head.jpg',
-                width: 50,
-                height: 50,
-              ),
-            ),
+                child:
+//              new Image.asset(
+//                'images/head.jpg',
+//                width: 50,
+//                height: 50,
+//              ),
+                    new Column(
+              children: <Widget>[
+                new Container(
+                  margin: EdgeInsets.only(top: 30, bottom: 15),
+                  width: 70.0,
+                  height: 70.0,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                      image: AssetImage('images/head.jpg'),
+                    ),
+                  ),
+                ),
+                new Text(
+                  "Dale",
+                  style: TextStyle(color: Colors.white, fontSize: 18),
+                )
+              ],
+            )),
             decoration: new BoxDecoration(
                 gradient: LinearGradient(
               begin: Alignment.topCenter,

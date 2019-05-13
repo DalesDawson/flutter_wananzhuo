@@ -8,7 +8,7 @@
          FlutterApplication and put your custom class here. -->
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="玩安卓"
+        android:label="玩安卓(Flutter)"
         android:usesCleartextTraffic="true"
         android:icon="@mipmap/icon">
         <activity
