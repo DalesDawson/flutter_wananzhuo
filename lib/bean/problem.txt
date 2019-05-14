@@ -25,3 +25,5 @@ builder: (context) =>
 new DetailsPage(item.link, item.name)));
 });
 
+5.搜索需要使用的库
+packages: https://pub.flutter-io.cn/flutter
