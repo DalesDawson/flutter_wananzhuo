@@ -129,7 +129,7 @@ class _MinePageState extends State<MinePage> {
           onTap: () {
             NavigatorUtil.toDetails(
                 context,
-                "https://github.com/DalesDawson/flutter_wananzhuo",
+                "https://github.com/DalesDawson/flutter_wananzhuo/blob/master/README.md",
                 "玩安卓Flutter版");
           },
         ),
