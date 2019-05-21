@@ -1,5 +1,5 @@
 # flutter_wananzhuo
-## Describtion:练手的一个玩安卓项目
+## Description:练手的一个玩安卓项目
 # 一、项目介绍
 ### 1.api地址来源：玩安卓开放API https://www.wanandroid.com/blog/show/2
 ### 2.项目用到的三方控件
