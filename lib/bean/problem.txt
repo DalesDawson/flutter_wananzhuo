@@ -2,7 +2,7 @@
 解决：flutter_refresh: ^0.0.2
 
 2.数据还没加载出来，界面报红色错误
-解决：用一个变量控制是否在加载
+解决：用一个变量控制是否在加载完成，未加载完成先显示加载页面
 
 3.webview控件加载不出有些网页（报错：net err_cleartext_not_permitted）
 从Android 9.0（API级别28）开始，默认情况下禁用明文支持。因此http的url均无法在webview中加载
