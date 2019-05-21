@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_wananzhuo/utils/CommonUtil.dart';
+import 'package:flutter_wananzhuo/utils/NavigatorUtil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class MinePage extends StatefulWidget {
@@ -118,7 +119,7 @@ class _MinePageState extends State<MinePage> {
             padding: EdgeInsets.all(10),
             child: new Row(
               children: <Widget>[
-                new Text("关于作者"),
+                new Text("关于项目"),
                 new Icon(Icons.keyboard_arrow_right)
               ],
               mainAxisSize: MainAxisSize.max,
@@ -126,14 +127,10 @@ class _MinePageState extends State<MinePage> {
             ),
           ),
           onTap: () {
-            Fluttertoast.showToast(
-                msg: "敬请期待...",
-                toastLength: Toast.LENGTH_SHORT,
-                gravity: ToastGravity.BOTTOM,
-                timeInSecForIos: 2,
-                backgroundColor: Colors.blue,
-                textColor: Colors.white,
-                fontSize: 16.0);
+            NavigatorUtil.toDetails(
+                context,
+                "https://github.com/DalesDawson/flutter_wananzhuo",
+                "玩安卓Flutter版");
           },
         ),
         new GestureDetector(
