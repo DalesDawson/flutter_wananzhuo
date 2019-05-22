@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_wananzhuo/pages/LoginPage.dart';
 import 'package:flutter_wananzhuo/utils/CommonUtil.dart';
 import 'package:flutter_wananzhuo/utils/NavigatorUtil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -150,14 +151,16 @@ class _MinePageState extends State<MinePage> {
             ),
           ),
           onTap: () {
-            Fluttertoast.showToast(
-                msg: "敬请期待...",
-                toastLength: Toast.LENGTH_SHORT,
-                gravity: ToastGravity.BOTTOM,
-                timeInSecForIos: 2,
-                backgroundColor: Colors.blue,
-                textColor: Colors.white,
-                fontSize: 16.0);
+//            Fluttertoast.showToast(
+//                msg: "敬请期待...",
+//                toastLength: Toast.LENGTH_SHORT,
+//                gravity: ToastGravity.BOTTOM,
+//                timeInSecForIos: 2,
+//                backgroundColor: Colors.blue,
+//                textColor: Colors.white,
+//                fontSize: 16.0);
+            Navigator.push(context,
+                new MaterialPageRoute(builder: (context) => new LoginPage()));
           },
         )
       ],

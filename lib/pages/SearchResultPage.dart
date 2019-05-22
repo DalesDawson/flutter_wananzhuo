@@ -1,7 +1,8 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_refresh/flutter_refresh.dart';
-import 'package:flutter_wananzhuo/bean/HomeItem.dart' as homeItem;
 import 'package:flutter_wananzhuo/bean/Api.dart';
+import 'package:flutter_wananzhuo/bean/HomeItem.dart' as homeItem;
 import 'package:flutter_wananzhuo/utils/HttpUtil.dart';
 import 'package:flutter_wananzhuo/utils/NavigatorUtil.dart';
 
@@ -18,7 +19,7 @@ class SearchResultPage extends StatefulWidget {
 
 class SearchResultState extends State<SearchResultPage> {
   final String name;
-  int pageIndex=0;
+  int pageIndex = 0;
   List<homeItem.HomeItemDataData> resultList = [];
 
   SearchResultState(this.name);
@@ -41,8 +42,11 @@ class SearchResultState extends State<SearchResultPage> {
   }
 
   void getSearchList() async {
+    FormData formData = new FormData.from({
+      "k": name,
+    });
     var response = await new HttpUtil()
-        .postFormData(Api.SEARCH_WORD + pageIndex.toString() + "/json",name);
+        .post(Api.SEARCH_WORD + pageIndex.toString() + "/json", data: formData);
     var item = new homeItem.HomeItem.fromJson(response);
     if (pageIndex == 0) {
       resultList = item.data.datas;
@@ -94,7 +98,7 @@ class SearchResultState extends State<SearchResultPage> {
     return new Card(
       child: new InkWell(
         onTap: () {
-          NavigatorUtil.toDetails(context,item.link,item.title);
+          NavigatorUtil.toDetails(context, item.link, item.title);
         },
         child: new ListTile(
           title: new Row(
