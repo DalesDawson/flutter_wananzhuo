@@ -1,13 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_wananzhuo/pages/RegisterPage.dart';
 
-class LoginPage extends StatefulWidget {
+class RegisterPage extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => new _LoginPageState();
+  State<StatefulWidget> createState() => new _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   final userController = TextEditingController();
   final passwordController = TextEditingController();
 
@@ -16,7 +15,7 @@ class _LoginPageState extends State<LoginPage> {
     return new Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: new Text("登录"),
+        title: new Text("注册"),
       ),
       body: buildContent(),
     );
@@ -46,20 +45,13 @@ class _LoginPageState extends State<LoginPage> {
           ),
           new InputEditTextPassWordWidget(),
           SizedBox(
+            height: 20,
+          ),
+          new InputEditTextPassRepeatWordWidget(),
+          SizedBox(
             height: 30,
           ),
           new LoginButtonWidget(),
-          SizedBox(
-            height: 15,
-          ),
-          new GestureDetector(
-              child: Container(child: new Text("没有账号,立即注册")),
-              onTap: () {
-                Navigator.push(
-                    context,
-                    new MaterialPageRoute(
-                        builder: (context) => new RegisterPage()));
-              })
         ],
       ),
     );
@@ -108,6 +100,31 @@ class InputEditTextPassWordWidget extends StatelessWidget {
           maxLines: 1,
           decoration: InputDecoration(
             hintText: '密码',
+            border: InputBorder.none,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+//重复密码
+class InputEditTextPassRepeatWordWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return new SizedBox(
+      child: new Container(
+        padding: EdgeInsets.fromLTRB(20, 2, 8, 2),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(30),
+          color: Colors.black12,
+        ),
+        alignment: Alignment.center,
+        child: TextField(
+          maxLines: 1,
+          decoration: InputDecoration(
+            hintText: '重复密码',
             border: InputBorder.none,
           ),
         ),
