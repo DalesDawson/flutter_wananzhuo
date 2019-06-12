@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_wananzhuo/pages/RegisterPage.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -19,11 +20,11 @@ class _LoginPageState extends State<LoginPage> {
         title: new Text("登录"),
       ),
       body: buildContent(),
+      resizeToAvoidBottomPadding: false, //输入框抵住键盘
     );
   }
 
   Widget buildContent() {
-//    return new Text("咋个不显示了");
     // TODO: implement build
     return Container(
       decoration: new BoxDecoration(
@@ -40,15 +41,79 @@ class _LoginPageState extends State<LoginPage> {
             height: 100,
           ),
           SizedBox(height: 60),
-          new InputEditTextNameWidget(),
+          new SizedBox(
+            child: new Container(
+              padding: EdgeInsets.fromLTRB(20, 2, 8, 2),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30),
+                color: Colors.black12,
+              ),
+              alignment: Alignment.center,
+              child: TextField(
+                controller: userController,
+                maxLines: 1,
+                decoration: InputDecoration(
+                  hintText: '用户名',
+                  border: InputBorder.none,
+                ),
+              ),
+            ),
+          ),
           SizedBox(
             height: 20,
           ),
-          new InputEditTextPassWordWidget(),
+          new SizedBox(
+            child: new Container(
+              padding: EdgeInsets.fromLTRB(20, 2, 8, 2),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30),
+                color: Colors.black12,
+              ),
+              alignment: Alignment.center,
+              child: TextField(
+                obscureText: true,
+                controller: passwordController,
+                maxLines: 1,
+                decoration: InputDecoration(
+                  hintText: '密码',
+                  border: InputBorder.none,
+                ),
+              ),
+            ),
+          ),
           SizedBox(
             height: 30,
           ),
-          new LoginButtonWidget(),
+          new GestureDetector(
+            child: new Container(
+                padding: EdgeInsets.fromLTRB(2, 15, 2, 15),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30),
+                  color: Colors.deepOrangeAccent,
+                ),
+                alignment: Alignment.center,
+                child: Text(
+                  '登录',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      letterSpacing: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
+                )),
+            onTap: () {
+              Fluttertoast.showToast(
+                  msg: "用户名" +
+                      userController.text +
+                      "密码" +
+                      passwordController.text,
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.BOTTOM,
+                  timeInSecForIos: 2,
+                  backgroundColor: Colors.black,
+                  textColor: Colors.white,
+                  fontSize: 16.0);
+            },
+          ),
           SizedBox(
             height: 15,
           ),
@@ -66,77 +131,78 @@ class _LoginPageState extends State<LoginPage> {
   }
 }
 
-//输入用户名
-class InputEditTextNameWidget extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    return new SizedBox(
-      child: new Container(
-        padding: EdgeInsets.fromLTRB(20, 2, 8, 2),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(30),
-          color: Colors.black12,
-        ),
-        alignment: Alignment.center,
-        child: TextField(
-          maxLines: 1,
-          decoration: InputDecoration(
-            hintText: '用户名',
-            border: InputBorder.none,
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-//输入密码
-class InputEditTextPassWordWidget extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    return new SizedBox(
-      child: new Container(
-        padding: EdgeInsets.fromLTRB(20, 2, 8, 2),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(30),
-          color: Colors.black12,
-        ),
-        alignment: Alignment.center,
-        child: TextField(
-          maxLines: 1,
-          decoration: InputDecoration(
-            hintText: '密码',
-            border: InputBorder.none,
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-//登录按钮
-class LoginButtonWidget extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    return new SizedBox(
-      child: new Container(
-          padding: EdgeInsets.fromLTRB(2, 15, 2, 15),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(30),
-            color: Colors.deepOrangeAccent,
-          ),
-          alignment: Alignment.center,
-          child: Text(
-            '登录',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                letterSpacing: 20,
-                fontWeight: FontWeight.bold,
-                color: Colors.white),
-          )),
-    );
-  }
-}
+////输入用户名
+//class InputEditTextNameWidget extends StatelessWidget {
+//  @override
+//  Widget build(BuildContext context) {
+//    // TODO: implement build
+//    return new SizedBox(
+//      child: new Container(
+//        padding: EdgeInsets.fromLTRB(20, 2, 8, 2),
+//        decoration: BoxDecoration(
+//          borderRadius: BorderRadius.circular(30),
+//          color: Colors.black12,
+//        ),
+//        alignment: Alignment.center,
+//        child: TextField(
+////          controller: userController,
+//          maxLines: 1,
+//          decoration: InputDecoration(
+//            hintText: '用户名',
+//            border: InputBorder.none,
+//          ),
+//        ),
+//      ),
+//    );
+//  }
+//}
+//
+////输入密码
+//class InputEditTextPassWordWidget extends StatelessWidget {
+//  @override
+//  Widget build(BuildContext context) {
+//    // TODO: implement build
+//    return new SizedBox(
+//      child: new Container(
+//        padding: EdgeInsets.fromLTRB(20, 2, 8, 2),
+//        decoration: BoxDecoration(
+//          borderRadius: BorderRadius.circular(30),
+//          color: Colors.black12,
+//        ),
+//        alignment: Alignment.center,
+//        child: TextField(
+//          maxLines: 1,
+//          decoration: InputDecoration(
+//            hintText: '密码',
+//            border: InputBorder.none,
+//          ),
+//        ),
+//      ),
+//    );
+//  }
+//}
+//
+////登录按钮
+//class LoginButtonWidget extends StatelessWidget {
+//  @override
+//  Widget build(BuildContext context) {
+//    // TODO: implement build
+//    return new SizedBox(
+//      child: new Container(
+//          padding: EdgeInsets.fromLTRB(2, 15, 2, 15),
+//          decoration: BoxDecoration(
+//            borderRadius: BorderRadius.circular(30),
+//            color: Colors.deepOrangeAccent,
+//          ),
+//          alignment: Alignment.center,
+//          child: Text(
+//            '登录',
+//            textAlign: TextAlign.center,
+//            style: TextStyle(
+//                letterSpacing: 20,
+//                fontWeight: FontWeight.bold,
+//                color: Colors.white),
+//          )),
+//    );
+//  }
+//}

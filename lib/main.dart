@@ -9,7 +9,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: '玩安卓',
-      debugShowCheckedModeBanner: false,
+      debugShowCheckedModeBanner: false, //去掉页面右上角的debug标识
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
