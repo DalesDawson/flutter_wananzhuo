@@ -118,7 +118,11 @@ class _LoginPageState extends State<LoginPage> {
             height: 15,
           ),
           new GestureDetector(
-              child: Container(child: new Text("没有账号,立即注册")),
+              child: Container(
+                  child: new Text("没有账号,立即注册",
+                      style: new TextStyle(
+                          decoration: TextDecoration.underline,
+                          decorationStyle: TextDecorationStyle.solid))),
               onTap: () {
                 Navigator.push(
                     context,
