@@ -1,6 +1,12 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_wananzhuo/Constant.dart';
+import 'package:flutter_wananzhuo/bean/Api.dart';
+import 'package:flutter_wananzhuo/bean/login_response_entity.dart';
 import 'package:flutter_wananzhuo/pages/RegisterPage.dart';
+import 'package:flutter_wananzhuo/utils/HttpUtil.dart';
+import 'package:flutter_wananzhuo/utils/SpUtil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class LoginPage extends StatefulWidget {
@@ -101,17 +107,30 @@ class _LoginPageState extends State<LoginPage> {
                       color: Colors.white),
                 )),
             onTap: () {
-              Fluttertoast.showToast(
-                  msg: "用户名" +
-                      userController.text +
-                      "密码" +
-                      passwordController.text,
-                  toastLength: Toast.LENGTH_SHORT,
-                  gravity: ToastGravity.BOTTOM,
-                  timeInSecForIos: 2,
-                  backgroundColor: Colors.black,
-                  textColor: Colors.white,
-                  fontSize: 16.0);
+              if (userController.text.length == 0 ||
+                  passwordController.text.length == 0) {
+                Fluttertoast.showToast(
+                    msg: "用户名或密码不能为空",
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.BOTTOM,
+                    timeInSecForIos: 2,
+                    backgroundColor: Colors.black,
+                    textColor: Colors.white,
+                    fontSize: 16.0);
+              } else {
+                Fluttertoast.showToast(
+                    msg: "用户名" +
+                        userController.text +
+                        "密码" +
+                        passwordController.text,
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.BOTTOM,
+                    timeInSecForIos: 2,
+                    backgroundColor: Colors.black,
+                    textColor: Colors.white,
+                    fontSize: 16.0);
+                login(userController.text, passwordController.text, context);
+              }
             },
           ),
           SizedBox(
@@ -135,6 +154,38 @@ class _LoginPageState extends State<LoginPage> {
   }
 }
 
+void login(var name, var password, BuildContext context) async {
+  FormData formData =
+      new FormData.from({"username": name, "password": password});
+  var response = await new HttpUtil().post(Api.LOGIN, data: formData);
+  var item = new LoginResponseEntity.fromJson(response);
+  if (item.errorCode == 0) {
+//    Fluttertoast.showToast(
+//        msg: "登录成功！",
+//        toastLength: Toast.LENGTH_SHORT,
+//        gravity: ToastGravity.BOTTOM,
+//        timeInSecForIos: 2,
+//        backgroundColor: Colors.black,
+//        textColor: Colors.white,
+//        fontSize: 16.0);
+    _setUser(item.data);
+
+    Navigator.pop(context);
+  } else {
+    Fluttertoast.showToast(
+        msg: item.errorMsg,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIos: 2,
+        backgroundColor: Colors.black,
+        textColor: Colors.white,
+        fontSize: 16.0);
+  }
+}
+
+void _setUser(LoginResponseData user) async {
+  SpUtils.setString(Constant.spUserName, user.username);
+}
 ////输入用户名
 //class InputEditTextNameWidget extends StatelessWidget {
 //  @override

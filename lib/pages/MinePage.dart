@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_wananzhuo/Constant.dart';
 import 'package:flutter_wananzhuo/pages/LoginPage.dart';
 import 'package:flutter_wananzhuo/utils/CommonUtil.dart';
 import 'package:flutter_wananzhuo/utils/NavigatorUtil.dart';
+import 'package:flutter_wananzhuo/utils/SpUtil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class MinePage extends StatefulWidget {
@@ -10,6 +12,8 @@ class MinePage extends StatefulWidget {
 }
 
 class _MinePageState extends State<MinePage> {
+  String _name;
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -19,6 +23,24 @@ class _MinePageState extends State<MinePage> {
       ),
       body: buildContent(),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _getUser();
+  }
+
+  void _getUser() async {
+    SpUtils.getString(Constant.spUserName).then((str) {
+      setState(() {
+        if (str != null) {
+          _name = str;
+        } else {
+          _name = " ";
+        }
+      });
+    });
   }
 
   Widget buildContent() {
@@ -49,7 +71,7 @@ class _MinePageState extends State<MinePage> {
                   ),
                 ),
                 new Text(
-                  "Dale",
+                  _name,
                   style: TextStyle(color: Colors.white, fontSize: 18),
                 )
               ],

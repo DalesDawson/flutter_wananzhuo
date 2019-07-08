@@ -169,6 +169,7 @@ class _HomePageState extends State<HomePage> {
               cycleRolling: false,
               autoRolling: true,
               indicatorMargin: 8.0,
+              intervalDuration: Duration(seconds: 3),
 //              indicatorNormal: this._indicatorItem(Colors.white),
 //              indicatorSelected:
 //                  this._indicatorItem(Colors.white, selected: true),
@@ -181,7 +182,7 @@ class _HomePageState extends State<HomePage> {
             )
           : new Container(),
       width: double.infinity,
-      height: 200.0,
+      height: 250.0,
     );
   }
 }

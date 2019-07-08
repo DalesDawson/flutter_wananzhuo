@@ -32,6 +32,7 @@ dependencies:
   fluttertoast: ^3.0.4
   flutter_html_textview: "^0.2.6"
   flutter_easyrefresh: ^1.2.7
+  shared_preferences: ^0.4.3
 
 dev_dependencies:
 
