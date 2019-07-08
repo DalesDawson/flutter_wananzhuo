@@ -8,6 +8,7 @@ import 'package:flutter_wananzhuo/bean/project_tree_entity.dart' as projectTree;
 import 'package:flutter_wananzhuo/utils/CommonUtil.dart';
 import 'package:flutter_wananzhuo/utils/HttpUtil.dart';
 import 'package:flutter_wananzhuo/utils/NavigatorUtil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class ProjectPage extends StatefulWidget {
   @override
@@ -75,7 +76,7 @@ class ListPageState extends State<ListPage> with AutomaticKeepAliveClientMixin {
   bool isLoading = true;
   final int cid;
   List<homeItem.HomeItemDataData> data = [];
-  int pageIndex = 0;
+  int pageIndex = 1;
 
   ListPageState(this.cid);
 
@@ -122,13 +123,13 @@ class ListPageState extends State<ListPage> with AutomaticKeepAliveClientMixin {
                                 item.envelopePic,
                                 fit: BoxFit.cover,
                                 width: 80.0,
-                                height: 120.0,
+                                height: 130.0,
                               ),
                               new Container(
-                                height: 120.0,
+                                height: 130.0,
                                 margin: EdgeInsets.only(left: 8.0),
                                 width:
-                                    CommonUtil.getScreenWidth(context) - 120.0,
+                                    CommonUtil.getScreenWidth(context) - 130.0,
                                 child: new Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment:
@@ -154,12 +155,16 @@ class ListPageState extends State<ListPage> with AutomaticKeepAliveClientMixin {
                                       children: <Widget>[
                                         new Text(
                                           item.author,
+                                          softWrap: false,
+                                          overflow: TextOverflow.ellipsis,
                                           style: new TextStyle(
                                               fontSize: 12.0,
                                               color: Colors.blue),
                                         ),
                                         new Text(
                                           "${date.year}年${date.month}月${date.day}日 ${date.hour}:${date.minute}",
+                                          softWrap: false,
+                                          overflow: TextOverflow.ellipsis,
                                           style: new TextStyle(
                                               fontSize: 11.0,
                                               color: Colors.blue),
@@ -184,7 +189,7 @@ class ListPageState extends State<ListPage> with AutomaticKeepAliveClientMixin {
   Future<Null> onHeaderRefresh() {
     return new Future.delayed(new Duration(seconds: 2), () {
       setState(() {
-        pageIndex = 0;
+        pageIndex = 1;
         data.clear();
         this.getPageData();
       });
@@ -216,10 +221,21 @@ class ListPageState extends State<ListPage> with AutomaticKeepAliveClientMixin {
     var item = new homeItem.HomeItem.fromJson(response);
     setState(() {
       isLoading = false;
-      if (pageIndex == 0) {
+      if (pageIndex == 1) {
         data = item.data.datas;
       } else {
-        data.addAll(item.data.datas);
+        if (item.data.datas.length == 0) {
+          Fluttertoast.showToast(
+              msg: "我也是有底线的！",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIos: 2,
+              backgroundColor: Colors.blue,
+              textColor: Colors.white,
+              fontSize: 16.0);
+        } else {
+          data.addAll(item.data.datas);
+        }
       }
     });
   }

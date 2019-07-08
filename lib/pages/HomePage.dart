@@ -6,6 +6,7 @@ import 'package:flutter_wananzhuo/bean/BannerItem.dart' as bannerItem;
 import 'package:flutter_wananzhuo/bean/HomeItem.dart' as homeItem;
 import 'package:flutter_wananzhuo/utils/HttpUtil.dart';
 import 'package:flutter_wananzhuo/utils/NavigatorUtil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -66,7 +67,18 @@ class _HomePageState extends State<HomePage> {
     if (pageIndex == 0) {
       homeList = item.data.datas;
     } else {
-      homeList.addAll(item.data.datas);
+      if (item.data.datas.length == 0) {
+        Fluttertoast.showToast(
+            msg: "我也是有底线的！",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIos: 2,
+            backgroundColor: Colors.blue,
+            textColor: Colors.white,
+            fontSize: 16.0);
+      } else {
+        homeList.addAll(item.data.datas);
+      }
     }
     setState(() {});
   }

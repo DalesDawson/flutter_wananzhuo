@@ -5,6 +5,7 @@ import 'package:flutter_wananzhuo/bean/Api.dart';
 import 'package:flutter_wananzhuo/bean/HomeItem.dart' as homeItem;
 import 'package:flutter_wananzhuo/utils/HttpUtil.dart';
 import 'package:flutter_wananzhuo/utils/NavigatorUtil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class SearchResultPage extends StatefulWidget {
   final String name;
@@ -51,7 +52,18 @@ class SearchResultState extends State<SearchResultPage> {
     if (pageIndex == 0) {
       resultList = item.data.datas;
     } else {
-      resultList.addAll(item.data.datas);
+      if (item.data.datas.length == 0) {
+        Fluttertoast.showToast(
+            msg: "我也是有底线的！",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIos: 2,
+            backgroundColor: Colors.blue,
+            textColor: Colors.white,
+            fontSize: 16.0);
+      } else {
+        resultList.addAll(item.data.datas);
+      }
     }
     setState(() {});
   }

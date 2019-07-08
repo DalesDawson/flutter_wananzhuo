@@ -8,6 +8,7 @@ import 'package:flutter_wananzhuo/bean/system_list_item_entity.dart'
 import 'package:flutter_wananzhuo/bean/system_tree_entity.dart';
 import 'package:flutter_wananzhuo/utils/HttpUtil.dart';
 import 'package:flutter_wananzhuo/utils/NavigatorUtil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class SystemListPage extends StatefulWidget {
   final List<SystemTreeDatachild> children;
@@ -109,7 +110,7 @@ class ListPageState extends State<ListPage> with AutomaticKeepAliveClientMixin {
                       isUtc: true);
                   return new GestureDetector(
                     onTap: () {
-                      NavigatorUtil.toDetails(context,item.link,item.title);
+                      NavigatorUtil.toDetails(context, item.link, item.title);
                     },
                     child: new Card(
                       child: Container(
@@ -196,7 +197,18 @@ class ListPageState extends State<ListPage> with AutomaticKeepAliveClientMixin {
       if (pageIndex == 0) {
         data = item.data.datas;
       } else {
-        data.addAll(item.data.datas);
+        if (item.data.datas.length == 0) {
+          Fluttertoast.showToast(
+              msg: "我也是有底线的！",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIos: 2,
+              backgroundColor: Colors.blue,
+              textColor: Colors.white,
+              fontSize: 16.0);
+        } else {
+          data.addAll(item.data.datas);
+        }
       }
     });
   }
