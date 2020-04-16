@@ -1,10 +1,13 @@
-# flutter_wananzhuo
-## Description:Flutter写的一个玩安卓项目
+# flutter_wananzhuo 玩安卓(Flutter版)
+## 玩安卓有多个版本，本文是Flutter版本，如下还有其他版本
+## [玩安卓(微信小程序版)](https://github.com/DalesDawson/WanAnZhuo)
+## [玩安卓(Kotlin版本)](https://github.com/DalesDawson/KotlinWanAnZhuo)
+# Description:Flutter写的一个玩安卓项目
 # 一、项目介绍
 ### 1.api地址来源：玩安卓开放API https://www.wanandroid.com/blog/show/2
 ### 2.项目用到的三方控件
 ####  网络框架：
-dio: ^2.1.2 
+dio: ^3.x 
 ####  轮播banner ：
 banner_view: "^1.1.2"
 ####  webview：
@@ -25,19 +28,10 @@ fluttertoast: ^3.0.4
 ### ![我的](https://github.com/DalesDawson/flutter_wananzhuo/blob/master/images/%E6%88%91%E7%9A%84.jpg)
 
 # 三、TODO
-1.收藏功能
+~~1.收藏功能~~
 2.TODO功能
-3.登录/注册
+~~3.登录/注册~~
 
-### 后期有时间再继续完善TODO的功能
-## Getting Started
-This project is a starting point for a Flutter application.
-A few resources to get you started if this is your first Flutter project:
-- [Lab: Write your first Flutter app](https://flutter.io/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.io/docs/cookbook)
-
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.io/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+### 后期有时间再继续完善TODO的功能，如有意见和建议，欢迎Issues
 # flutter_wananzhuo
 # END
