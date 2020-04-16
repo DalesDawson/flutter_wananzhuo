@@ -4,6 +4,7 @@ import 'package:flutter_refresh/flutter_refresh.dart';
 import 'package:flutter_wananzhuo/bean/Api.dart';
 import 'package:flutter_wananzhuo/bean/BannerItem.dart' as bannerItem;
 import 'package:flutter_wananzhuo/bean/HomeItem.dart' as homeItem;
+import 'package:flutter_wananzhuo/utils/CollectUtil.dart';
 import 'package:flutter_wananzhuo/utils/HttpUtil.dart';
 import 'package:flutter_wananzhuo/utils/NavigatorUtil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -122,26 +123,39 @@ class _HomePageState extends State<HomePage> {
         },
         child: new ListTile(
           title: new Row(
-            children: <Widget>[
-              new Text(item.author,
-                  textAlign: TextAlign.left,
-                  style: new TextStyle(color: Colors.grey, fontSize: 13)),
-              new Text(item.niceDate,
-                  textAlign: TextAlign.right,
-                  style: new TextStyle(color: Colors.grey, fontSize: 13))
-            ],
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-          ),
+              children: <Widget>[
+                new Text(item.author,
+                    textAlign: TextAlign.left,
+                    style: new TextStyle(color: Colors.grey, fontSize: 13)),
+                new Text(item.niceDate,
+                    textAlign: TextAlign.right,
+                    style: new TextStyle(color: Colors.grey, fontSize: 13))
+              ],
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center),
           subtitle: new Column(
             children: <Widget>[
               new Text(item.title,
                   textAlign: TextAlign.left,
                   style: new TextStyle(color: Colors.black, fontSize: 15)),
-              new Text(
-                item.superChapterName + "/" + item.chapterName,
-                style: new TextStyle(color: Colors.blue, fontSize: 13),
+              new Row(
+                children: <Widget>[
+                  new Text(item.superChapterName + "/" + item.chapterName,
+                      style: new TextStyle(color: Colors.blue, fontSize: 13)),
+                  new IconButton(
+                      icon: Image.asset(
+                        'images/icon_like_normal.png',
+                        height: 20,
+                        width: 20,
+                      ),
+                      onPressed: () {
+                        CollectUtil.collect(item.id);
+                      })
+                ],
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
               )
             ],
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -150,6 +164,32 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+
+//  void collect(int id) async {
+//    var response =
+//        await new HttpUtil().post(Api.COLLECT + id.toString() + "/json");
+////    print(response.toString());
+//    var item = new homeItem.HomeItem.fromJson(response);
+//    if (item.errorCode == 0) {
+//      Fluttertoast.showToast(
+//          msg: "收藏成功！",
+//          toastLength: Toast.LENGTH_SHORT,
+//          gravity: ToastGravity.BOTTOM,
+//          timeInSecForIos: 2,
+//          backgroundColor: Colors.blue,
+//          textColor: Colors.white,
+//          fontSize: 16.0);
+//    } else {
+//      Fluttertoast.showToast(
+//          msg: item.errorMsg,
+//          toastLength: Toast.LENGTH_SHORT,
+//          gravity: ToastGravity.BOTTOM,
+//          timeInSecForIos: 2,
+//          backgroundColor: Colors.blue,
+//          textColor: Colors.white,
+//          fontSize: 16.0);
+//    }
+//  }
 
   Widget buildBanner() {
     return new Container(

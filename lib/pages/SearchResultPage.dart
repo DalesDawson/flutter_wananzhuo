@@ -43,7 +43,7 @@ class SearchResultState extends State<SearchResultPage> {
   }
 
   void getSearchList() async {
-    FormData formData = new FormData.from({
+    FormData formData = new FormData.fromMap({
       "k": name,
     });
     var response = await new HttpUtil()

@@ -118,17 +118,17 @@ class _LoginPageState extends State<LoginPage> {
                     textColor: Colors.white,
                     fontSize: 16.0);
               } else {
-                Fluttertoast.showToast(
-                    msg: "用户名" +
-                        userController.text +
-                        "密码" +
-                        passwordController.text,
-                    toastLength: Toast.LENGTH_SHORT,
-                    gravity: ToastGravity.BOTTOM,
-                    timeInSecForIos: 2,
-                    backgroundColor: Colors.black,
-                    textColor: Colors.white,
-                    fontSize: 16.0);
+//                Fluttertoast.showToast(
+//                    msg: "用户名" +
+//                        userController.text +
+//                        "密码" +
+//                        passwordController.text,
+//                    toastLength: Toast.LENGTH_SHORT,
+//                    gravity: ToastGravity.BOTTOM,
+//                    timeInSecForIos: 2,
+//                    backgroundColor: Colors.black,
+//                    textColor: Colors.white,
+//                    fontSize: 16.0);
                 login(userController.text, passwordController.text, context);
               }
             },
@@ -156,18 +156,18 @@ class _LoginPageState extends State<LoginPage> {
 
 void login(var name, var password, BuildContext context) async {
   FormData formData =
-      new FormData.from({"username": name, "password": password});
+      new FormData.fromMap({"username": name, "password": password});
   var response = await new HttpUtil().post(Api.LOGIN, data: formData);
   var item = new LoginResponseEntity.fromJson(response);
   if (item.errorCode == 0) {
-//    Fluttertoast.showToast(
-//        msg: "登录成功！",
-//        toastLength: Toast.LENGTH_SHORT,
-//        gravity: ToastGravity.BOTTOM,
-//        timeInSecForIos: 2,
-//        backgroundColor: Colors.black,
-//        textColor: Colors.white,
-//        fontSize: 16.0);
+    Fluttertoast.showToast(
+        msg: "登录成功！",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIos: 2,
+        backgroundColor: Colors.black,
+        textColor: Colors.white,
+        fontSize: 16.0);
     _setUser(item.data);
 
     Navigator.pop(context);

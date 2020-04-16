@@ -153,7 +153,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
 void register(
     var name, var password, var repassword, BuildContext context) async {
-  FormData formData = new FormData.from(
+  FormData formData = new FormData.fromMap(
       {"username": name, "password": password, "repassword": repassword});
   var response = await new HttpUtil().post(Api.REGISTER, data: formData);
   var item = new UserInfoItem.UserInfoItem.fromJson(response);
