@@ -41,8 +41,7 @@ class HttpUtil {
       headers: {},
     );
     dio = new Dio(options);
-    var cookieJar = CookieJar();
-    dio.interceptors.add(CookieManager(cookieJar));
+    dio.interceptors.add(CookieManager(CookieJar()));
 //    getCookiePath().then((val) {
 //      dio.interceptors
 //          .add(CookieManager(PersistCookieJar(dir: val, ignoreExpires: true)));
